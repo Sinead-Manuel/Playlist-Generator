@@ -1,0 +1,28 @@
+{
+  "name": "playlist-generator",
+  "version": "1.0.0",
+  "description": "Web app which generates playlists based on keyword input",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sinead-Manuel/Playlist-Generator.git"
+  },
+  "keywords": [
+    "playlist",
+    "generator",
+    "music"
+  ],
+  "author": "Sinead Manuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sinead-Manuel/Playlist-Generator/issues"
+  },
+  "homepage": "https://github.com/Sinead-Manuel/Playlist-Generator#readme",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
+}
