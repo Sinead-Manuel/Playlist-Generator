@@ -1,9 +1,6 @@
 const crypto = require('crypto');
 const querystring = require('querystring');
 
-let codeInput = null;
-let stateInput = null;
-
 require('dotenv').config();
 
 // Code snippet: https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
@@ -31,24 +28,6 @@ exports.getSpotifyAuthUrl = () => {
         redirect_uri: 'http://localhost:3000/callback',
         state: state
     });
-};
-
-exports.setCode = (code) => {
-    codeInput = code;
-    // console.log("\nspotify code input: " + codeInput);
-};
-
-exports.getCode = () => {
-    return codeInput;
-};
-
-exports.setState = (state) => {
-    stateInput = state;
-    // console.log("\nspotify state input: " + stateInput);
-};
-
-exports.getState = () => {
-    return stateInput;
 };
 
 // Fetches access token from Spotify

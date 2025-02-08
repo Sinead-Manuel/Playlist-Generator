@@ -3,11 +3,11 @@ const app = express();
 const PORT = 3000;
 const spotifyAuth = require('./services/spotifyAuth');
 const playlistGenerator = require('./routes/playlist');
-const querystring = require('querystring');
+// const querystring = require('querystring');
 require('dotenv').config();
 
-var code = null;
-var state = null;
+let code = null;
+let state = null;
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -17,8 +17,8 @@ app.get('/', (req, res) => {
     res.send('<h1>Playlist Generator</h1>');
 });
 
-var stateKey = 'spotify_auth_state';
-var access_token = '';
+let stateKey = 'spotify_auth_state';
+let access_token = '';
 
 // Authoring Playlist Generator to access user's Spotify account
 // https://github.com/spotify/web-api-examples/blob/7c4872d343a6f29838c437cf163012947b4bffb9/authorization/authorization_code/app.js#L37-L52
@@ -28,12 +28,10 @@ app.get('/login', function(req, res) {
 
 // Implement /callback endpoint - Redirects users after a successful connection to Spotify.
 app.get('/callback', async (req, res) => {
-    spotifyAuth.setCode(req.query.code);
-    spotifyAuth.setState(req.query.state);
+    code = req.query.code || null;
+    state = req.query.code || null;
 
-    code = spotifyAuth.getCode() || null;
-    state = spotifyAuth.getState() || null;
-    var storedState = req.cookies ? req.cookies[stateKey] : null;
+    // var storedState = req.cookies ? req.cookies[stateKey] : null;
 
     // Retrieves access token
     const tokenData = await spotifyAuth.getAccessToken(code, state);
@@ -48,7 +46,7 @@ app.get('/callback', async (req, res) => {
     access_token = tokenData.access_token;
 });
 
-
+// Generates playlist
 app.get('/playlist', async (req, res) => {
     res.send("<h1>Vibes, Genre, Generate Playlist</h1>")
 
@@ -58,7 +56,6 @@ app.get('/playlist', async (req, res) => {
 
     // Generate playlist based on keywords
     const playlist = await playlistGenerator.createPlaylist(access_token);
-
 });
 
 // Start the server - npx nodemon server.js
