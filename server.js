@@ -48,14 +48,19 @@ app.get('/callback', async (req, res) => {
 
 // Generates playlist
 app.get('/playlist', async (req, res) => {
-    res.send("<h1>Vibes, Genre, Generate Playlist</h1>")
-
     // Select vibe keyword
-
+    let vibe = 'happy';
     // Select genre keyword
+    let genre = 'afrobeats';
+
+    res.send(`<h1>${vibe} ${genre} Generate Playlist</h1>`)
 
     // Generate playlist based on keywords
-    const playlist = await playlistGenerator.createPlaylist(access_token);
+    const playlist = await playlistGenerator.createPlaylist(access_token, vibe, genre);
+
+    const findTracks = await playlistGenerator.findTracks(access_token, vibe, genre);
+
+    // const addTracks = await playlistGenerator.addTracks(access_token);
 });
 
 // Start the server - npx nodemon server.js
